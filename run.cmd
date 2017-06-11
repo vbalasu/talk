@@ -1,0 +1,1 @@
+c:\wamp\www\curl\curl.exe --request POST --data-urlencode "cmd=python savecsv.py" --data-urlencode STDIN@data.txt http://localhost/talk/function.php
