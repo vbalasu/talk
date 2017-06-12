@@ -21,11 +21,13 @@ io.on('connection', function(socket){
 	var cmd = 'cmd.exe /c '+msg;
 
 	exec(cmd, function(error, stdout, stderr) {
-	  console.log(stdout);
-	  socket.emit('output', stdout);
 	  if(error) {
-		  console.log(stderr);
+		  console.error(stderr);
 		  socket.emit('errormsg', stderr);
+	  } else {
+		  	console.log(stdout);
+			socket.emit('output', stdout);
+
 	  }
 	});
 
