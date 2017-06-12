@@ -20,7 +20,7 @@ socket.on('errormsg', function(data){
 });
 socket.on('output', function(data){ 
 	console.log(data); 
-	socket.disconnect();
+	//socket.disconnect();
 	//process.exit();
 });
 socket.on('disconnect', function(){ console.log('Disconnected'); });
