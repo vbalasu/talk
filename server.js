@@ -6,6 +6,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var stdin = '';
+
 app.get('/', function(req, res){
 res.sendFile(__dirname + '/index.html');
 });
@@ -15,7 +17,9 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
+  socket.on('stdin', function(str) { stdin = str; });
   socket.on('chat message', function(msg){
+	console.log('stdin: ' + stdin);
     console.log('message: ' + msg);
 	var exec = require('child_process').exec;
 	var cmd = 'cmd.exe /c '+msg;

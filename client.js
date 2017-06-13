@@ -1,5 +1,9 @@
-//var socket = require('socket.io-client')('http://54.152.42.238:3000');
-var socket = require('socket.io-client')('http://localhost:3000');
+var socket = require('socket.io-client')('http://54.152.42.238:3000');
+//var socket = require('socket.io-client')('http://localhost:3000');
+
+const getStdin = require('get-stdin');
+ 
+
 if(process.argv.length < 3) {
 	console.error('Syntax: client <command> [<args>]');
 	process.exit();
@@ -10,8 +14,12 @@ args.shift();
 
 
 socket.on('connect', function(){ 
-	console.log('Connected'); 
-	socket.emit('chat message', args.join(' '));
+	console.error('Connected'); 
+	getStdin().then(str => { 
+		socket.emit('stdin', str); 
+		socket.emit('chat message', args.join(' '));
+	});
+
 });
 socket.on('errormsg', function(data){ 
 	console.error(data);
@@ -23,4 +31,4 @@ socket.on('output', function(data){
 	//socket.disconnect();
 	//process.exit();
 });
-socket.on('disconnect', function(){ console.log('Disconnected'); });
+socket.on('disconnect', function(){ console.error('Disconnected'); });
