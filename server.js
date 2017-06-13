@@ -32,11 +32,11 @@ io.on('connection', function(socket){
 	  if(error) {
 		  console.error(stderr);
 		  socket.emit('errormsg', stderr);
-		  socket.disconnect();
+//		  socket.disconnect();
 	  } else {
 		  	console.log(stdout);
 			socket.emit('output', stdout);
-        	socket.disconnect();
+//        	socket.disconnect();
 
 	  }
 	});
