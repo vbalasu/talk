@@ -12,8 +12,13 @@ These scripts allow powerful communications between client and server, which wor
 - You can also communicate to the server using a web interface at the above url
 
 Examples
+
 node client.js dir		- show the directory on the server
+
 node client.js time /t		- show the current time on the server
+
 echo HELLO | node client.js copy stdin.txt hello.txt	- uploads some text to the server
+
 type help.txt | node client.js copy stdin.txt help2.txt	- uploads a local file to the server 
+
 node client.js sqlite3 –help	- Invokes sqlite3 command line
