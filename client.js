@@ -1,9 +1,6 @@
 var socket = require('socket.io-client')('http://54.152.42.238:3000');
 //var socket = require('socket.io-client')('http://localhost:3000');
-
 const getStdin = require('get-stdin');
- 
-
 if(process.argv.length < 3) {
 	console.error('Syntax: client <command> [<args>]');
 	process.exit();
@@ -19,7 +16,6 @@ socket.on('connect', function(){
 		socket.emit('stdin', str); 
 		socket.emit('chat message', args.join(' '));
 	});
-
 });
 socket.on('errormsg', function(data){ 
 	console.error(data);
