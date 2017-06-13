@@ -5,6 +5,7 @@ as socket.io messages
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+const fs = require('fs');
 
 var stdin = '';
 
@@ -17,14 +18,17 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('stdin', function(str) { stdin = str; });
+  socket.on('stdin', function(str) { 
+	stdin = str; 
+	console.log('stdin.txt:[['+str+']]'); 
+	fs.writeFileSync('stdin.txt', stdin);
+  });
   socket.on('chat message', function(msg){
-	console.log('stdin: ' + stdin);
     console.log('message: ' + msg);
 	var exec = require('child_process').exec;
 	var cmd = 'cmd.exe /c '+msg;
 
-	exec(cmd, function(error, stdout, stderr) {
+	exec(cmd, function(error, stdout, stderr) {		//pass STDIN stream to child process
 	  if(error) {
 		  console.error(stderr);
 		  socket.emit('errormsg', stderr);
